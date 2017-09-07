@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  * This class implements a Singly or One way linked list
  * @author Kelsey Lieberman
@@ -145,15 +146,16 @@ public class CustomLinkedList {
 	public int findData(int val){
 		Node aNode = start;
 		int position = 1;
-		while (!aNode.getNext().equals(null)){
+		while (position <= this.getSize()){
+
 			if (aNode.getData() == val){
 				System.out.println("Found in LinkedList");
-				return position;
-				
+				return position;	
 			}
 			aNode = aNode.getNext();
 			position++;
 		}
+
 		return -1;
 	}
 	
@@ -164,25 +166,25 @@ public class CustomLinkedList {
 	 * linkedlist, -1 if not found
 	 */
 	
-	public int[] findAll(int val){
-		int [] positions = null;
+	public ArrayList<Integer> findAll(int val){
+		ArrayList<Integer> positions = new ArrayList<>();
+		//int [] positions = null;
 		Node aNode = start;
 		int position = 1;
 		int occurrences = 0;
-		while (!aNode.getNext().equals(null)){
+		while (position <= this.getSize()){
 			if (aNode.getData() == val){
-				positions[occurrences] = position;
+				positions.add(position);
 				occurrences++;
 			}
 			aNode = aNode.getNext();
 			position++;
 		}
 		if (occurrences != 0){
-			positions[0] = -1;
+			positions.set(0, -1);
 		}
 		
-		return positions;
-		
+		return positions;		
 	}
 
 	/**
@@ -192,15 +194,20 @@ public class CustomLinkedList {
 	 */
 	public void update(int initialVal, int newVal){
 		Node aNode = start;
-		while (!aNode.getNext().equals(null)){
+		if (aNode.getData() == initialVal){
+			aNode.setData(newVal);
+			return;
+		}
+		else{
+		do{
+			aNode = aNode.getNext();
 			if (aNode.getData() == initialVal){
 				aNode.setData(newVal);
 				return;
 			}
-			else{
-				aNode = aNode.getNext();
-			}
-		}		
+		}
+		while (!aNode.getNext().equals(null));
+		}	
 	}
 	
 	/**
@@ -210,12 +217,22 @@ public class CustomLinkedList {
 	 */
 	public void updateAll(int initialVal, int newVal){
 		Node aNode = start;
-		while (!aNode.getNext().equals(null)){
+		if (aNode.getData() == initialVal){
+			aNode.setData(newVal);
+			//System.out.println(start.getData() + " first if " + end.getData());
+		}
+		do{
+			System.out.println(start.getData() + " do " + end.getData());
+			aNode = aNode.getNext();
 			if (aNode.getData() == initialVal){
 				aNode.setData(newVal);
+				System.out.println(start.getData() + " seccond if " + end.getData());
 			}
-			aNode = aNode.getNext();
+			//avoid the null pointer exception of checking the last element
+			if (aNode.getNext() == null)
+				return;
 		}
+		while (!aNode.getNext().equals(null));
 	}
 	
 	/**

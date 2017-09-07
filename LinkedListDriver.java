@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 /**
  * This class is a driver for the Singly or one way linked list
  * 
@@ -29,7 +30,7 @@ public class LinkedListDriver {
 			System.out.println("9. update a value");
 			System.out.println("10. update all occurrences of a value");
 			System.out.println("11. update a value at a position");			
-			System.out.println("12. exit");
+			System.out.println("12. exit\n");
 			int choice = scan.nextInt();
 			switch (choice)
 			{
@@ -67,11 +68,11 @@ public class LinkedListDriver {
 				break;
 			case 7: //find data
 				System.out.println("Enter the value to find");				
-				System.out.println("That value is at position " + list.findData(scan.nextInt()));
+				System.out.print(" at position " + list.findData(scan.nextInt()));
 				break;
 			case 8: //find all
 				System.out.println("Enter the value to find");
-				int[] positions = list.findAll(scan.nextInt());
+				ArrayList<Integer> positions = list.findAll(scan.nextInt());
 				System.out.println ("That value is at the following positions: " + positions.toString());
 				break;
 			case 9: //update
@@ -123,7 +124,7 @@ public class LinkedListDriver {
 		System.out.print(start.getData() + "->");
 		aNode = start.getNext();
 		while (aNode.getNext() != null){
-			System.out.println(aNode.getData() + "->");
+			System.out.print(aNode.getData() + "->");
 			aNode = aNode.getNext();
 		}
 		System.out.print(aNode.getData() + "\n");
