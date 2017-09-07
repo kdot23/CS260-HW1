@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.*;
+import java.util.Arrays;
 /**
  * This class is a driver for the Singly or one way linked list
  * 
@@ -72,8 +72,9 @@ public class LinkedListDriver {
 				break;
 			case 8: //find all
 				System.out.println("Enter the value to find");
-				ArrayList<Integer> positions = list.findAll(scan.nextInt());
-				System.out.println ("That value is at the following positions: " + positions.toString());
+				int[] positions = list.findAll(scan.nextInt());
+				System.out.println ("That value is at the following positions: " 
+						+ Arrays.toString(positions));
 				break;
 			case 9: //update
 				System.out.println("Enter the initial value");

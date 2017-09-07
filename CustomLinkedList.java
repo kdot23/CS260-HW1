@@ -1,4 +1,3 @@
-import java.util.*;
 /**
  * This class implements a Singly or One way linked list
  * @author Kelsey Lieberman
@@ -80,7 +79,7 @@ public class CustomLinkedList {
 	 * @param pos position of the value in the list
 	 */
 	public void insertAtPos(int val, int pos){
-		if (pos == 1 || pos == size - 1){
+		if (pos == 1 || pos == size){
 			System.out.println("Error: This method does not accept starting or ending positions.");
 			return;
 		}
@@ -88,7 +87,7 @@ public class CustomLinkedList {
 		Node node = new Node(val, null);
 		Node aNode = start;
 		pos = pos - 1;
-		for (int i =1; i < size; i++){
+		for (int i = 1; i < size; i++){
 			if (i == pos){
 				Node tmp = aNode.getNext();
 				aNode.setNext(node);
@@ -146,10 +145,10 @@ public class CustomLinkedList {
 	public int findData(int val){
 		Node aNode = start;
 		int position = 1;
-		while (position <= this.getSize()){
+		while (!(aNode == null)){
 
 			if (aNode.getData() == val){
-				System.out.println("Found in LinkedList");
+				System.out.print("Found in LinkedList");
 				return position;	
 			}
 			aNode = aNode.getNext();
@@ -166,24 +165,37 @@ public class CustomLinkedList {
 	 * linkedlist, -1 if not found
 	 */
 	
-	public ArrayList<Integer> findAll(int val){
-		ArrayList<Integer> positions = new ArrayList<>();
-		//int [] positions = null;
+	public int[] findAll(int val){
+		int[] positions = null;
 		Node aNode = start;
-		int position = 1;
 		int occurrences = 0;
-		while (position <= this.getSize()){
+		while (!(aNode == null)){
 			if (aNode.getData() == val){
-				positions.add(position);
 				occurrences++;
 			}
 			aNode = aNode.getNext();
-			position++;
-		}
-		if (occurrences != 0){
-			positions.set(0, -1);
 		}
 		
+		if (occurrences == 0){
+			positions = new int[1];
+			positions[0] = -1;
+		}
+		
+		else{
+			aNode = start;
+			positions = new int[occurrences];
+			int p = 1;
+			int i = 0;
+
+			while (!(aNode == null)){
+				if (aNode.getData() == val){
+					positions[i] = p;
+					i++;
+				}
+				aNode = aNode.getNext();
+				p++;
+			}
+		}	
 		return positions;		
 	}
 
@@ -194,20 +206,15 @@ public class CustomLinkedList {
 	 */
 	public void update(int initialVal, int newVal){
 		Node aNode = start;
-		if (aNode.getData() == initialVal){
-			aNode.setData(newVal);
-			return;
-		}
-		else{
-		do{
-			aNode = aNode.getNext();
+		while (!(aNode == null)) {
 			if (aNode.getData() == initialVal){
 				aNode.setData(newVal);
 				return;
 			}
+		else{
+			aNode = aNode.getNext();
 		}
-		while (!aNode.getNext().equals(null));
-		}	
+		}
 	}
 	
 	/**
@@ -217,22 +224,12 @@ public class CustomLinkedList {
 	 */
 	public void updateAll(int initialVal, int newVal){
 		Node aNode = start;
-		if (aNode.getData() == initialVal){
-			aNode.setData(newVal);
-			//System.out.println(start.getData() + " first if " + end.getData());
-		}
-		do{
-			System.out.println(start.getData() + " do " + end.getData());
-			aNode = aNode.getNext();
+		while (!(aNode == null)) {
 			if (aNode.getData() == initialVal){
 				aNode.setData(newVal);
-				System.out.println(start.getData() + " seccond if " + end.getData());
 			}
-			//avoid the null pointer exception of checking the last element
-			if (aNode.getNext() == null)
-				return;
+			aNode = aNode.getNext();
 		}
-		while (!aNode.getNext().equals(null));
 	}
 	
 	/**
